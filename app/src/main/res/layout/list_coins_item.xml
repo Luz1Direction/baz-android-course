@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="8dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/clContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/imgCoin"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_margin="12dp"
+                android:contentDescription="imagen_de_moneda"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/img_bitcoin"
+                 />
+
+           <TextView
+               android:id="@+id/txtNameCoin"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               app:layout_constraintStart_toEndOf="@+id/imgCoin"
+               android:textStyle="bold"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               android:maxLength="8"
+               android:textColor="@color/black"
+               android:text="NOMBRE"
+               android:textSize="16sp"
+               android:layout_margin="16dp">
+           </TextView>
+
+            <ImageView
+                android:id="@+id/imgArrorUp"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:layout_margin="12dp"
+                android:contentDescription="arrow up"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/imgArrorDown"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/arrow_up"
+                app:tint="#367E18" />
+            <TextView
+                android:id="@+id/txtMaxValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="@id/imgArrorUp"
+                app:layout_constraintEnd_toStartOf="@id/imgArrorUp"
+                android:maxLength="9"
+                android:textSize="8sp"
+                android:text="$9000000.00"
+                >
+           </TextView>
+
+            <ImageView
+                android:id="@+id/imgArrorDown"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:contentDescription="Arrow Down"
+                android:scaleType="fitCenter"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/arrow_down"
+                app:tint="#EB1D36"
+                android:layout_marginEnd="50dp"/>
+
+            <TextView
+                android:id="@+id/txtMinValue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@id/txtMaxValue"
+                app:layout_constraintStart_toEndOf="@id/imgArrorDown"
+                app:layout_constraintBottom_toBottomOf="@id/imgArrorDown"
+                android:maxLength="9"
+                android:text="$9000000.00"
+                android:textSize="8sp"
+                android:layout_marginEnd="8dp">
+            </TextView>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/line1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="50">
+    </androidx.constraintlayout.widget.Guideline>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

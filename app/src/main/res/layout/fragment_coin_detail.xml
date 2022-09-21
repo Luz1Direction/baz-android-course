@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mvvm.detailscoinfragment.CoinDetailFragment">
+
+    <ImageView
+        android:id="@+id/imgIconCoin"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_margin="12dp"
+        android:contentDescription="icon coin"
+        android:scaleType="fitCenter"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:src="@drawable/img_bitcoin"
+        />
+
+    <TextView
+        android:id="@+id/txtNameCoin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        app:layout_constraintTop_toBottomOf="@+id/imgIconCoin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/white"
+        android:text="NOMBRE"
+        android:textSize="24sp"
+        android:layout_margin="16dp">
+    </TextView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardLast"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/txtNameCoin"
+        android:layout_margin="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            >
+
+            <TextView
+                android:id="@+id/titleLast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LAST:"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtLast"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="392000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/titleLast"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardHigh"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardLast"
+        android:layout_margin="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            >
+
+            <TextView
+                android:id="@+id/titleHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="HIGH:"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtHigh"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="392000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/titleHigh"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:cardCornerRadius="6dp"
+        app:cardElevation="8dp"
+        android:padding="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/cardHigh"
+        android:layout_margin="12dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dp"
+            >
+
+            <TextView
+                android:id="@+id/titleLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="LOW:"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            </TextView>
+
+            <TextView
+                android:id="@+id/txtLow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="392000"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/titleLow"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                >
+
+            </TextView>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
