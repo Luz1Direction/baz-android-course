@@ -18,7 +18,7 @@
         android:id="@+id/coinDetailFragment"
         android:name="com.example.criptomonedasapp.mvvm.detailscoinfragment.CoinDetailFragment"
         android:label="fragment_coin_detail"
-        tools:layout="@layout/fragment_coin_detail" >
+        tools:layout="@layout/coin_detail_fragment" >
 
     </fragment>
 </navigation>

@@ -6,24 +6,24 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.example.criptomonedasapp.databinding.FragmentCoinDetailBinding
-import com.example.criptomonedasapp.mvvm.listcoinsfragment.ListCoinsViewModel
-import com.example.criptomonedasapp.utils.GetModelCardCoin.getIconCoin
-import com.example.criptomonedasapp.utils.GetModelCardCoin.getNameCoin
+import com.example.criptomonedasapp.databinding.CoinDetailFragmentBinding
+import com.example.criptomonedasapp.mvvm.listcoinsfragment.CoinListViewModel
+import com.example.criptomonedasapp.utils.GetCoinCardModel.getCoinIcon
+import com.example.criptomonedasapp.utils.GetCoinCardModel.getNameCoin
 
 class CoinDetailFragment : Fragment(){
 
-    private var _binding: FragmentCoinDetailBinding? = null
+    private var _binding: CoinDetailFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModelObtNameCoin: ListCoinsViewModel
+    private lateinit var viewModelObtNameCoin: CoinListViewModel
     private lateinit var viewModel: CoinDetailViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentCoinDetailBinding.inflate(inflater, container, false)
+        _binding = CoinDetailFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -31,17 +31,17 @@ class CoinDetailFragment : Fragment(){
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(this).get(CoinDetailViewModel::class.java)
-        viewModelObtNameCoin = ViewModelProvider(this).get(ListCoinsViewModel::class.java)
+        viewModelObtNameCoin = ViewModelProvider(this).get(CoinListViewModel::class.java)
 
         viewModel.getDetailCoin("btc_mxn")
 
         viewModel.detail.observe(viewLifecycleOwner) {
             with(binding){
-                txtHigh.text = it.high
-                txtLast.text = it.last
-                txtLow.text = it.low
-                txtNameCoin.text = getNameCoin(it.book)
-                imgIconCoin.setImageResource(getIconCoin(it.book))
+                txtHigh.text = it.highValue
+                txtLast.text = it.lastValue
+                txtLow.text = it.lowValue
+                txtNameCoin.text = getNameCoin(it.coinName)
+                imgIconCoin.setImageResource(getCoinIcon(it.coinName))
             }
 
         }

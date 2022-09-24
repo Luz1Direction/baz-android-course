@@ -1,19 +1,19 @@
 package com.example.criptomonedasapp.utils
 
-import com.example.criptomonedasapp.model.CoinsModelAux
+import com.example.criptomonedasapp.model.CoinAuxiliaryModel
 
-object GetModelCardCoin {
+object GetCoinCardModel {
     var model: DataToCoinsModelAux = DataToCoinsModelAux()
 
-    fun getIconCoin(nameCoin:String):Int{
+    fun getCoinIcon(nameCoin:String):Int{
         return getDataCoins(nameCoin).drawable
     }
 
     fun getNameCoin(nameCoin:String):String{
-        return getDataCoins(nameCoin).nameCoin
+        return getDataCoins(nameCoin).coinName
     }
 
-    fun getDataCoins(typeCoins:String): CoinsModelAux {
+    fun getDataCoins(typeCoins:String): CoinAuxiliaryModel {
         return model.typeCoins(typeCoins)
     }
 }

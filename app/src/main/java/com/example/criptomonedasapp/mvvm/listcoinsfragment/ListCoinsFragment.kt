@@ -9,30 +9,29 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.R
+import com.example.criptomonedasapp.databinding.CoinListFragmentBinding
+import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
+import com.example.criptomonedasapp.mvvm.listcoinsfragment.CoinListViewModel
 
-import com.example.criptomonedasapp.databinding.FragmentListCoinsBinding
-import com.example.criptomonedasapp.mvvm.interfaces.DetailCoinResultCallback
-import com.example.criptomonedasapp.mvvm.listcoinsfragment.ListCoinsViewModel
+class ListCoinsFragment() : Fragment(), CoinDetailResultCallback {
 
-class ListCoinsFragment() : Fragment(), DetailCoinResultCallback {
-
-    private var _binding: FragmentListCoinsBinding? = null
+    private var _binding: CoinListFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var viewModel: ListCoinsViewModel
+    private lateinit var viewModel: CoinListViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding =FragmentListCoinsBinding.inflate(inflater, container, false)
+        _binding = CoinListFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProvider(this).get(ListCoinsViewModel::class.java)
+        viewModel = ViewModelProvider(this).get(CoinListViewModel::class.java)
 
         viewModel.getAll(this)
 
@@ -43,7 +42,7 @@ class ListCoinsFragment() : Fragment(), DetailCoinResultCallback {
 
     }
 
-    override fun onItemConvention(nameC: String) {
+    override fun goCoinDetail(coin: String) {
         findNavController().navigate(R.id.action_listCoinsFragment_to_coinDetailFragment2)
     }
 

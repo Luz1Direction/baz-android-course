@@ -1,6 +1,6 @@
 package com.example.criptomonedasapp.model
 
-data class CoinsModelAux(
+data class CoinAuxiliaryModel(
     var drawable: Int,
-    var nameCoin: String
+    var coinName: String
 )

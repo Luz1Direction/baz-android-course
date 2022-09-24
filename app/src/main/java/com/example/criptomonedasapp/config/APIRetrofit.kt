@@ -8,10 +8,10 @@ import retrofit2.converter.gson.GsonConverterFactory
 class APIRetrofit {
 
     fun getConfigRetrofit(): APIService {
-        var mRetrofit = Retrofit.Builder()
+        var retrofit = Retrofit.Builder()
             .baseUrl(URL_BASE_)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
-        return mRetrofit.create(APIService::class.java)
+        return retrofit.create(APIService::class.java)
     }
 }

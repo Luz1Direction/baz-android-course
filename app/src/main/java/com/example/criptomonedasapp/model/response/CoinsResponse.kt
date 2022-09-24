@@ -3,36 +3,36 @@ package com.example.criptomonedasapp.model.response
 import com.google.gson.annotations.SerializedName
 
 data class CoinsResponse (
-    @SerializedName("success") var success: String,
-    @SerializedName("payload") var payload: List<Payload>
+    var success: String,
+    @SerializedName("payload") var CoinList: List<CoinList>
 )
 
-data class Payload(
+data class CoinList(
     @SerializedName("book") var coinName: String,
-    @SerializedName("minimum_price") var minimum_price: String,
-    @SerializedName("maximum_price") var maximum_price: String,
-    @SerializedName("minimum_amount") var minimum_amount: String,
-    @SerializedName("maximum_amount") var maximum_amount: String,
-    @SerializedName("minimum_value") var minimum_value: String,
-    @SerializedName("maximum_value") var maximum_value: String,
-    @SerializedName("tick_size") var tick_size: String,
-    @SerializedName("default_chart") var default_chart: String,
-    @SerializedName("fees") var fees: FeesModel
+    var minimum_price: String,
+    var maximum_price: String,
+    var minimum_amount: String,
+    var maximum_amount: String,
+    var minimum_value: String,
+    var maximum_value: String,
+    var tick_size: String,
+    var default_chart: String,
+    var fees: FeesModel
 )
 
 data class FeesModel(
-    @SerializedName("flat_rate") var flat_rate: FlatRateModel,
-    @SerializedName("structure") var structure: List<StructureModel>,
+    var flat_rate: FlatRateModel,
+    var structure: List<StructureModel>,
 )
 
 data class FlatRateModel(
-    @SerializedName("maker") var maker: String,
-    @SerializedName("taker") var taker: String,
+    var maker: String,
+    var taker: String,
 )
 
 data class StructureModel(
-    @SerializedName("volume") var volume :String,
-    @SerializedName("maker") var maker :String,
-    @SerializedName("taker") var taker :String,
+    var volume :String,
+    var maker :String,
+    var taker :String,
 
     )

@@ -8,19 +8,19 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criptomonedasapp.R
 import com.example.criptomonedasapp.model.CoinsModelCard
-import com.example.criptomonedasapp.mvvm.interfaces.DetailCoinResultCallback
+import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
 
 
-class ListCoinAdapter(private val dataSet: List<CoinsModelCard>, val actionDetail: DetailCoinResultCallback) :
+class ListCoinAdapter(private val dataSet: List<CoinsModelCard>, val actionDetail: CoinDetailResultCallback) :
     RecyclerView.Adapter<ListCoinAdapter.ViewHolder>() {
 
 
 
-    class ViewHolder(view: View, action: DetailCoinResultCallback) : RecyclerView.ViewHolder(view) {
+    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         private val nameCoin: TextView
         private val maxValue: TextView
         private val minValue: TextView
-        val iconCoin: ImageView
+        private val iconCoin: ImageView
         private val cardView: View
 
         init {
@@ -31,23 +31,23 @@ class ListCoinAdapter(private val dataSet: List<CoinsModelCard>, val actionDetai
             cardView = view.findViewById(R.id.clContainer)
         }
 
-        fun enlazar(coin : CoinsModelCard, actionDetail: DetailCoinResultCallback){
-            nameCoin.text = coin.nameCoin
+        fun enlazar(coin : CoinsModelCard, actionDetail: CoinDetailResultCallback){
+            nameCoin.text = coin.coinName
             maxValue.text = coin.maxValue
             minValue.text = coin.minValue
             iconCoin.setImageResource(coin.drawable)
 
             cardView.setOnClickListener {
-                actionDetail.onItemConvention(coin.nameCoin)
+                actionDetail.goCoinDetail(coin.coinName)
             }
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.list_coins_item, viewGroup, false)
+            .inflate(R.layout.coin_list_item, viewGroup, false)
 
-        return ViewHolder(view, actionDetail)
+        return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
