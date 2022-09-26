@@ -7,50 +7,41 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.fragment.app.setFragmentResult
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.R
 import com.example.criptomonedasapp.databinding.CoinListFragmentBinding
+import com.example.criptomonedasapp.mvvm.adapter.CoinListAdapter
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
 import com.example.criptomonedasapp.mvvm.iu.coinlistfragment.CoinListViewModel
 
-class ListCoinsFragment() : Fragment(), CoinDetailResultCallback {
+class CoinListFragment() : Fragment(), CoinDetailResultCallback {
 
     private var _binding: CoinListFragmentBinding? = null
     private val binding get() = _binding!!
-
-    private lateinit var viewModel: CoinListViewModel
+    private val viewModel: CoinListViewModel by viewModels()
+    private val coinListAdapter: CoinListAdapter by lazy {
+        CoinListAdapter(this)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = CoinListFragmentBinding.inflate(inflater, container, false)
 
+        viewModel.getAllCoins()
+        binding.coinListRecyclerView.layoutManager = LinearLayoutManager(context)
+        binding.coinListRecyclerView.adapter = coinListAdapter
+        viewModel.coinList.observe(viewLifecycleOwner) {
+            coinListAdapter.submitList(it)
+        }
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        viewModel = ViewModelProvider(this).get(CoinListViewModel::class.java)
-
-        viewModel.getAll(this)
-
-        viewModel.adapter.observe(viewLifecycleOwner) {
-            binding.rvListCoins.adapter = it
-            binding.rvListCoins.layoutManager = LinearLayoutManager(requireContext())
-        }
-
-    }
-
     override fun goCoinDetail(coin: String) {
-
         setFragmentResult("requestKey", bundleOf("coinNameKey" to coin))
-
         findNavController().navigate(R.id.action_listCoinsFragment_to_coinDetailFragment2)
     }
-
-
 }

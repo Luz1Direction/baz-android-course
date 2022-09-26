@@ -1,44 +1,41 @@
 package com.example.criptomonedasapp.mvvm.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.criptomonedasapp.R
-import com.example.criptomonedasapp.model.network.AsksModel
+import com.example.criptomonedasapp.databinding.BidsRowItemBinding
 import com.example.criptomonedasapp.model.network.BidsModel
 
+class BidsAdapter() : ListAdapter<BidsModel, BidsAdapter.ViewHolder>(difCallbackBids) {
 
-class BidsAdapter(private val dataSet: List<BidsModel>) :
-    RecyclerView.Adapter<BidsAdapter.ViewHolder>() {
+    companion object {
+        val difCallbackBids = object : DiffUtil.ItemCallback<BidsModel>() {
+            override fun areItemsTheSame(oldItem: BidsModel, newItem: BidsModel): Boolean {
+                return oldItem.coinName == newItem.coinName
+            }
 
-    class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        private val price: TextView
-        private val amount: TextView
-
-        init {
-            price = view.findViewById(R.id.txtPrice)
-            amount = view.findViewById(R.id.txtAmount)
-        }
-
-        fun connectItem(bids: BidsModel){
-            price.text = bids.price
-            amount.text = bids.amount
+            override fun areContentsTheSame(oldItem: BidsModel, newItem: BidsModel): Boolean {
+                return oldItem == newItem
+            }
         }
     }
 
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(viewGroup.context)
-            .inflate(R.layout.bids_row_item, viewGroup, false)
-
+        val view = BidsRowItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
         return ViewHolder(view)
     }
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
-        viewHolder.connectItem(dataSet[position])
+        viewHolder.bind(getItem(position))
     }
 
-    override fun getItemCount() = dataSet.size
+    class ViewHolder(private val view: BidsRowItemBinding) : RecyclerView.ViewHolder(view.root) {
 
+        fun bind(coin: BidsModel) {
+            view.priceBidsTxt.text = coin.price
+            view.amountBidsTxt.text = coin.amount
+        }
+    }
 }

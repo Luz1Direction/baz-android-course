@@ -17,50 +17,49 @@ import kotlinx.coroutines.withContext
 
 class CoinDetailViewModel : ViewModel() {
 
-    var  repository : CryptocurrenciesRepositoryImpl = CryptocurrenciesRepositoryImpl()
+    var  repository: CryptocurrenciesRepositoryImpl = CryptocurrenciesRepositoryImpl()
     private lateinit var list: CoinDetailModel
 
-    private val _detail = MutableLiveData<CoinDetailModel>()
-    val detail: LiveData<CoinDetailModel> = _detail
+    private val _coinDetailModel = MutableLiveData<CoinDetailModel>()
+    val coinDetailModell: LiveData<CoinDetailModel> = _coinDetailModel
 
-    var aksAdapter = MutableLiveData<AsksAdapter>()
-    var bidsAdapter = MutableLiveData<BidsAdapter>()
+    private lateinit var asksListObtenied: List<AsksModel>
+    private lateinit var bidsListObtenied: List<BidsModel>
 
-    private lateinit var asksList: List<AsksModel>
-    private lateinit var bidsList: List<BidsModel>
+    var _bidsList = MutableLiveData<List<BidsModel>>()
+    var bidsList: LiveData<List<BidsModel>> = _bidsList
 
-    fun getDetailCoin(nameCoin: String) {
+    var _asksList = MutableLiveData<List<AsksModel>>()
+    var asksList: LiveData<List<AsksModel>> = _asksList
+
+    fun getCoinDetail(nameCoin: String) {
         viewModelScope.launch {
             list = withContext(Dispatchers.IO) {
                 repository.getCoinDetails(nameCoin)
             }
-            _detail.value = list
+            _coinDetailModel.value = list
         }
     }
 
     fun getAsks(nameCoin: String){
         viewModelScope.launch {
-            asksList = withContext(Dispatchers.IO){
+            asksListObtenied = withContext(Dispatchers.IO){
                 repository.getAskCoin(nameCoin)
             }
-            if (asksList.isNotEmpty()){
-                aksAdapter.value = AsksAdapter(asksList)
+            if (asksListObtenied.isNotEmpty()){
+                _asksList.value = asksListObtenied
             }
         }
     }
 
     fun getBids(nameCoin: String){
         viewModelScope.launch {
-            bidsList = withContext(Dispatchers.IO){
+            bidsListObtenied = withContext(Dispatchers.IO){
                 repository.getBidsCoin(nameCoin)
             }
-            if (bidsList.isNotEmpty()){
-                bidsAdapter.value = BidsAdapter(bidsList)
+            if (bidsListObtenied.isNotEmpty()){
+                _bidsList.value = bidsListObtenied
             }
         }
     }
-
-
-
-
 }

@@ -8,7 +8,7 @@
     tools:context=".mvvm.iu.coindetailfragment.CoinDetailFragment">
 
     <ImageView
-        android:id="@+id/imgIconCoin"
+        android:id="@+id/coinIconImg"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_margin="12dp"
@@ -17,25 +17,24 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/img_bitcoin"
-        />
+        android:src="@drawable/img_bitcoin" />
 
     <TextView
-        android:id="@+id/txtNameCoin"
+        android:id="@+id/coinNameTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@+id/imgIconCoin"
+        app:layout_constraintTop_toBottomOf="@+id/coinIconImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textColor="@color/white"
         android:text="NOMBRE"
         android:textSize="24sp"
-        android:layout_margin="16dp">
-    </TextView>
+        android:layout_margin="16dp"/>
+
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardLast"
+        android:id="@+id/lastCoinCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -43,48 +42,39 @@
         app:cardCornerRadius="6dp"
         app:cardElevation="8dp"
         android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/txtNameCoin"
+        app:layout_constraintTop_toBottomOf="@+id/coinNameTxt"
         android:layout_margin="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            >
+            android:padding="8dp">
 
             <TextView
-                android:id="@+id/titleLast"
+                android:id="@+id/lastCoinTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LAST:"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/txtLast"
+                android:id="@+id/lastCoinTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="392000"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/titleLast"
+                app:layout_constraintStart_toEndOf="@+id/lastCoinTitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardHigh"
+        android:id="@+id/highCoinCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -92,48 +82,39 @@
         app:cardCornerRadius="6dp"
         app:cardElevation="8dp"
         android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardLast"
+        app:layout_constraintTop_toBottomOf="@+id/lastCoinCard"
         android:layout_margin="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            >
+            android:padding="8dp">
 
             <TextView
-                android:id="@+id/titleHigh"
+                android:id="@+id/highCoinTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="HIGH:"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/txtHigh"
+                android:id="@+id/highCoinTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="392000"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/titleHigh"
+                app:layout_constraintStart_toEndOf="@+id/highCoinTitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.cardview.widget.CardView>
 
-
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardLow"
+        android:id="@+id/lowCoinCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
@@ -141,59 +122,51 @@
         app:cardCornerRadius="6dp"
         app:cardElevation="8dp"
         android:padding="8dp"
-        app:layout_constraintTop_toBottomOf="@+id/cardHigh"
+        app:layout_constraintTop_toBottomOf="@+id/highCoinCard"
         android:layout_margin="12dp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="8dp"
-            >
+            android:padding="8dp">
 
             <TextView
-                android:id="@+id/titleLow"
+                android:id="@+id/lowCoinTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="LOW:"
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
             <TextView
-                android:id="@+id/txtLow"
+                android:id="@+id/lowCoinTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="392000"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/titleLow"
+                app:layout_constraintStart_toEndOf="@+id/lowCoinTitle"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
-
-            </TextView>
+                app:layout_constraintTop_toTopOf="parent"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-
     </androidx.cardview.widget.CardView>
 
     <TextView
-        android:id="@+id/txtTittleAsk"
+        android:id="@+id/aksTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:text="ASKS"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/guideline"
+        app:layout_constraintEnd_toStartOf="@+id/guideline50Percent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardLow"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/lowCoinCard"/>
 
     <TextView
-        android:id="@+id/txtTittleBids"
+        android:id="@+id/bidsTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -201,52 +174,50 @@
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/cardLow"></TextView>
-
+        app:layout_constraintStart_toStartOf="@+id/guideline50Percent"
+        app:layout_constraintTop_toBottomOf="@+id/lowCoinCard"/>
 
     <TextView
-        android:id="@+id/txtTittlePriceAsks"
+        android:id="@+id/asksPriceTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="@+id/contentAskAndBids"
-        app:layout_constraintTop_toBottomOf="@+id/txtTittleAsk"></TextView>
+        app:layout_constraintTop_toBottomOf="@+id/aksTitleTxt"/>
 
     <TextView
-        android:id="@+id/txtTittleAmountAsks"
+        android:id="@+id/AsksAmountTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Amount"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toStartOf="@+id/txtTittlePriceBids"
-        app:layout_constraintTop_toBottomOf="@id/txtTittleAsk"></TextView>
+        app:layout_constraintEnd_toStartOf="@+id/bidsPriceTitleTxt"
+        app:layout_constraintTop_toBottomOf="@id/aksTitleTxt"/>
 
     <TextView
-        android:id="@+id/txtTittlePriceBids"
+        android:id="@+id/bidsPriceTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Price"
         android:textColor="@color/white"
         android:textStyle="bold"
         android:layout_marginStart="4dp"
-        app:layout_constraintStart_toStartOf="@+id/guideline"
-        app:layout_constraintTop_toBottomOf="@+id/txtTittleBids"></TextView>
+        app:layout_constraintStart_toStartOf="@+id/guideline50Percent"
+        app:layout_constraintTop_toBottomOf="@+id/bidsTitleTxt"/>
 
     <TextView
-        android:id="@+id/txtTittleAmountBids"
+        android:id="@+id/bidsAmountTitleTxt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Amount"
         android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="@+id/contentAskAndBids"
-        app:layout_constraintTop_toBottomOf="@id/txtTittleAsk"></TextView>
-
+        app:layout_constraintTop_toBottomOf="@id/aksTitleTxt"/>
 
     <LinearLayout
         android:id="@+id/contentAskAndBids"
@@ -254,33 +225,33 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtTittlePriceAsks"
+        app:layout_constraintTop_toBottomOf="@id/asksPriceTitleTxt"
         android:layout_margin="12dp">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvAsksList"
+            android:id="@+id/asksListRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTittlePriceCoin"
             android:layout_weight="1"
-            android:layout_marginEnd="6dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginEnd="6dp"
+            android:paddingBottom="16dp"/>
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvBidsList"
+            android:id="@+id/bidssListRecyclerView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/txtTittlePriceCoin"
             android:layout_weight="1"
-            android:layout_marginStart="6dp">
-        </androidx.recyclerview.widget.RecyclerView>
+            android:layout_marginStart="6dp"
+            android:paddingBottom="16dp"/>
 
     </LinearLayout>
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline"
+        android:id="@+id/guideline50Percent"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginEnd="798dp"
@@ -289,11 +260,10 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
+        android:id="@+id/guideLine25Percent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.25" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

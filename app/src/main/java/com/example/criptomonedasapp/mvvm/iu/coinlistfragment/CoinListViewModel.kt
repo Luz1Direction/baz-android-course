@@ -1,13 +1,12 @@
 package com.example.criptomonedasapp.mvvm.iu.coinlistfragment
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRepositoryImpl
 import com.example.criptomonedasapp.model.CoinsModelCard
 import com.example.criptomonedasapp.model.network.CoinListModel
-import com.example.criptomonedasapp.mvvm.adapter.CoinListAdapter
-import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getCoinIcon
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getNameCoin
 import kotlinx.coroutines.Dispatchers
@@ -16,34 +15,35 @@ import kotlinx.coroutines.withContext
 
 class CoinListViewModel : ViewModel() {
 
-    var  repository : CryptocurrenciesRepositoryImpl = CryptocurrenciesRepositoryImpl()
+    var repository: CryptocurrenciesRepositoryImpl = CryptocurrenciesRepositoryImpl()
 
-    //lateinit var r : CryptocurrenciesUseCase
     private lateinit var list: List<CoinListModel>
-    var listCoinsObtenied= ArrayList<CoinsModelCard>()
+    private var listCoinsObtenied = ArrayList<CoinsModelCard>()
 
-    var adapter = MutableLiveData<CoinListAdapter>()
+    private var _coinList = MutableLiveData<List<CoinsModelCard>>()
+    var coinList: LiveData<List<CoinsModelCard>> = _coinList
 
-    fun getAll(context: CoinDetailResultCallback) {
+    fun getAllCoins() {
         viewModelScope.launch {
-            list = withContext(Dispatchers.IO){
+            list = withContext(Dispatchers.IO) {
                 repository.getCoinList()
             }
-            if(list.isNotEmpty()){
+            if (list.isNotEmpty()) {
                 list.forEach {
-                    if(it.coinName.contains("mxn")){
-                        listCoinsObtenied.add(CoinsModelCard(coinName = getNameCoin(it.coinName), id = it.coinName,
-                            drawable = getCoinIcon(it.coinName), maxValue = it.maximum_value, minValue = it.minimum_value ))
+                    if (it.coinName.contains("mxn")) {
+                        listCoinsObtenied.add(
+                            CoinsModelCard(
+                                coinName = getNameCoin(it.coinName),
+                                id = it.coinName,
+                                drawable = getCoinIcon(it.coinName),
+                                maxValue = it.maximum_value,
+                                minValue = it.minimum_value
+                            )
+                        )
                     }
                 }
-                adapter.value = CoinListAdapter(listCoinsObtenied, context)
+                _coinList.value = listCoinsObtenied
             }
-
         }
     }
-
-
-
-
-
 }

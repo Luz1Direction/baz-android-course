@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/listCoinsFragment"
-        android:name="com.example.criptomonedas.mvvm.listcoinsfragment.ListCoinsFragment"
+        android:name="com.example.criptomonedas.mvvm.listcoinsfragment.CoinListFragment"
         android:label="ListCoinsFragment" >
 
         <action
