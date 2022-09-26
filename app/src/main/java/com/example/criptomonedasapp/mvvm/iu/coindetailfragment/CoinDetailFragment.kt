@@ -1,4 +1,4 @@
-package com.example.criptomonedasapp.mvvm.detailscoinfragment
+package com.example.criptomonedasapp.mvvm.iu.coindetailfragment
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.setFragmentResultListener
 import com.example.criptomonedasapp.databinding.CoinDetailFragmentBinding
-import com.example.criptomonedasapp.mvvm.listcoinsfragment.CoinListViewModel
+import com.example.criptomonedasapp.mvvm.iu.listcoinsfragment.CoinListViewModel
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getCoinIcon
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getNameCoin
 
@@ -33,7 +35,13 @@ class CoinDetailFragment : Fragment(){
         viewModel = ViewModelProvider(this).get(CoinDetailViewModel::class.java)
         viewModelObtNameCoin = ViewModelProvider(this).get(CoinListViewModel::class.java)
 
-        viewModel.getDetailCoin("btc_mxn")
+        setFragmentResultListener("requestKey") { key, bundle ->
+            val resultCoinName = bundle.getString("coinNameKey")
+            resultCoinName?.let {
+                viewModel.getDetailCoin(resultCoinName)
+            }
+            Toast.makeText(requireContext(), "$resultCoinName", Toast.LENGTH_SHORT).show()
+        }
 
         viewModel.detail.observe(viewLifecycleOwner) {
             with(binding){

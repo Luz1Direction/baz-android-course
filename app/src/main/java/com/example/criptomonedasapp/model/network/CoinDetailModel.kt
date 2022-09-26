@@ -1,4 +1,4 @@
-package com.example.criptomonedasapp.model
+package com.example.criptomonedasapp.model.network
 
 import com.google.gson.annotations.SerializedName
 
@@ -13,10 +13,5 @@ data class CoinDetailModel(
     var ask: String,
     var bid: String,
     var change_24: String,
-    var rolling_average_change: RollingAverageChange,
-)
-
-
-data class RollingAverageChange(
-    @SerializedName("6") var rolling_average_change: String,
+    var rolling_average_change: RollingAverageChangeModel,
 )

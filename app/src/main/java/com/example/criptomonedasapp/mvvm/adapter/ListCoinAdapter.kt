@@ -38,7 +38,7 @@ class ListCoinAdapter(private val dataSet: List<CoinsModelCard>, val actionDetai
             iconCoin.setImageResource(coin.drawable)
 
             cardView.setOnClickListener {
-                actionDetail.goCoinDetail(coin.coinName)
+                actionDetail.goCoinDetail(coin.id)
             }
         }
     }

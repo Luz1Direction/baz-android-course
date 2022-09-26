@@ -5,13 +5,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.fragment.app.setFragmentResult
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.R
 import com.example.criptomonedasapp.databinding.CoinListFragmentBinding
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
-import com.example.criptomonedasapp.mvvm.listcoinsfragment.CoinListViewModel
+import com.example.criptomonedasapp.mvvm.iu.listcoinsfragment.CoinListViewModel
 
 class ListCoinsFragment() : Fragment(), CoinDetailResultCallback {
 
@@ -31,6 +33,7 @@ class ListCoinsFragment() : Fragment(), CoinDetailResultCallback {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         viewModel = ViewModelProvider(this).get(CoinListViewModel::class.java)
 
         viewModel.getAll(this)
@@ -43,6 +46,9 @@ class ListCoinsFragment() : Fragment(), CoinDetailResultCallback {
     }
 
     override fun goCoinDetail(coin: String) {
+
+        setFragmentResult("requestKey", bundleOf("coinNameKey" to coin))
+
         findNavController().navigate(R.id.action_listCoinsFragment_to_coinDetailFragment2)
     }
 

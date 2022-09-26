@@ -1,11 +1,11 @@
-package com.example.criptomonedasapp.mvvm.listcoinsfragment
+package com.example.criptomonedasapp.mvvm.iu.listcoinsfragment
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.criptomonedasapp.repository.CryptocurrenciesRepository
+import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRepositoryImpl
 import com.example.criptomonedasapp.model.CoinsModelCard
-import com.example.criptomonedasapp.model.response.CoinList
+import com.example.criptomonedasapp.model.network.CoinListModel
 import com.example.criptomonedasapp.mvvm.adapter.ListCoinAdapter
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getCoinIcon
@@ -16,12 +16,13 @@ import kotlinx.coroutines.withContext
 
 class CoinListViewModel : ViewModel() {
 
-    var  repository : CryptocurrenciesRepository = CryptocurrenciesRepository()
-    private lateinit var list: List<CoinList>
+    var  repository : CryptocurrenciesRepositoryImpl = CryptocurrenciesRepositoryImpl()
+
+    //lateinit var r : CryptocurrenciesUseCase
+    private lateinit var list: List<CoinListModel>
     var listCoinsObtenied= ArrayList<CoinsModelCard>()
 
     var adapter = MutableLiveData<ListCoinAdapter>()
-
 
     fun getAll(context: CoinDetailResultCallback) {
         viewModelScope.launch {

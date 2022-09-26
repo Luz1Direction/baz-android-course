@@ -16,7 +16,7 @@
     </fragment>
     <fragment
         android:id="@+id/coinDetailFragment"
-        android:name="com.example.criptomonedasapp.mvvm.detailscoinfragment.CoinDetailFragment"
+        android:name="com.example.criptomonedasapp.mvvm.iu.coindetailfragment.CoinDetailFragment"
         android:label="fragment_coin_detail"
         tools:layout="@layout/coin_detail_fragment" >
 

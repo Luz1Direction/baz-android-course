@@ -11,7 +11,7 @@ class DataToCoinsModelAux {
             "eth_mxn" -> CoinAuxiliaryModel(coinName = "Ethereum", drawable = R.drawable.img_ethereum)
             "xrp_mxn" -> CoinAuxiliaryModel(coinName = "XRP", drawable = R.drawable.img_xrp)
             "ltc_mxn" -> CoinAuxiliaryModel(coinName = "LiteCoin", drawable = R.drawable.img_liteicon)
-            "bch_mxn" -> CoinAuxiliaryModel(coinName = "Bitcoin Cash", drawable = R.drawable.img_bitcoin_cash)
+            "bch_mxn" -> CoinAuxiliaryModel(coinName = "BitcoinCash", drawable = R.drawable.img_bitcoin_cash)
             "tusd_mxn" -> CoinAuxiliaryModel(coinName = "TrueUSD", drawable = R.drawable.img_tusd)
             "mana_mxn" -> CoinAuxiliaryModel(coinName = "Decentraland", drawable = R.drawable.img_decentraland)
             "bat_mxn" -> CoinAuxiliaryModel(coinName = "Bat Finance", drawable = R.drawable.img_bat_finance)
