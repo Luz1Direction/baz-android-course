@@ -1,14 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".mvvm.iu.listcoinsfragment.ListCoinsFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".mvvm.iu.coinlistfragment.ListCoinsFragment">
 
+   <TextView
+       android:id="@+id/titleApplication"
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       android:text="Criptomonedas"
+       android:textStyle="bold"
+       android:textSize="24sp"
+       android:textColor="@android:color/white"
+       android:layout_marginTop="16dp">
+
+   </TextView>
    <androidx.recyclerview.widget.RecyclerView
        android:id="@+id/rvListCoins"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content">
+       android:layout_height="wrap_content"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/titleApplication">
    </androidx.recyclerview.widget.RecyclerView>
 
-</FrameLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

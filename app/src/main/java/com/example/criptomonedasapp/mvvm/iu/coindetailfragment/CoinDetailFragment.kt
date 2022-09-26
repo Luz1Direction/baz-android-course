@@ -8,8 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.setFragmentResultListener
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.databinding.CoinDetailFragmentBinding
-import com.example.criptomonedasapp.mvvm.iu.listcoinsfragment.CoinListViewModel
+import com.example.criptomonedasapp.mvvm.iu.coinlistfragment.CoinListViewModel
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getCoinIcon
 import com.example.criptomonedasapp.utils.GetCoinCardModel.getNameCoin
 
@@ -39,8 +40,9 @@ class CoinDetailFragment : Fragment(){
             val resultCoinName = bundle.getString("coinNameKey")
             resultCoinName?.let {
                 viewModel.getDetailCoin(resultCoinName)
+                viewModel.getAsks(resultCoinName)
+                viewModel.getBids(resultCoinName)
             }
-            Toast.makeText(requireContext(), "$resultCoinName", Toast.LENGTH_SHORT).show()
         }
 
         viewModel.detail.observe(viewLifecycleOwner) {
@@ -51,7 +53,16 @@ class CoinDetailFragment : Fragment(){
                 txtNameCoin.text = getNameCoin(it.coinName)
                 imgIconCoin.setImageResource(getCoinIcon(it.coinName))
             }
+        }
 
+        viewModel.aksAdapter.observe(viewLifecycleOwner) {
+            binding.rvAsksList.adapter = it
+            binding.rvAsksList.layoutManager = LinearLayoutManager(requireContext())
+        }
+
+        viewModel.bidsAdapter.observe(viewLifecycleOwner) {
+            binding.rvBidsList.adapter = it
+            binding.rvBidsList.layoutManager = LinearLayoutManager(requireContext())
         }
 
     }

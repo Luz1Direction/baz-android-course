@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.R
 import com.example.criptomonedasapp.databinding.CoinListFragmentBinding
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
-import com.example.criptomonedasapp.mvvm.iu.listcoinsfragment.CoinListViewModel
+import com.example.criptomonedasapp.mvvm.iu.coinlistfragment.CoinListViewModel
 
 class ListCoinsFragment() : Fragment(), CoinDetailResultCallback {
 

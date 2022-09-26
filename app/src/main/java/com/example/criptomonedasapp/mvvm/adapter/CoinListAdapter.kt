@@ -11,8 +11,8 @@ import com.example.criptomonedasapp.model.CoinsModelCard
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
 
 
-class ListCoinAdapter(private val dataSet: List<CoinsModelCard>, val actionDetail: CoinDetailResultCallback) :
-    RecyclerView.Adapter<ListCoinAdapter.ViewHolder>() {
+class CoinListAdapter(private val dataSet: List<CoinsModelCard>, val actionDetail: CoinDetailResultCallback) :
+    RecyclerView.Adapter<CoinListAdapter.ViewHolder>() {
 
 
 
