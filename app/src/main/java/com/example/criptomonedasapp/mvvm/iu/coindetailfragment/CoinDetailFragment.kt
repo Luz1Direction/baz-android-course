@@ -9,16 +9,21 @@ import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.databinding.CoinDetailFragmentBinding
+import com.example.criptomonedasapp.model.network.typeCoins
 import com.example.criptomonedasapp.mvvm.adapter.AsksAdapter
 import com.example.criptomonedasapp.mvvm.adapter.BidsAdapter
-import com.example.criptomonedasapp.utils.GetCoinCardModel.getCoinIcon
-import com.example.criptomonedasapp.utils.GetCoinCardModel.getNameCoin
+import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRepositoryImpl
+import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesUseCase
 
 class CoinDetailFragment : Fragment(){
 
     private var _binding: CoinDetailFragmentBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: CoinDetailViewModel by viewModels()
+    private val viewModel: CoinDetailViewModel by viewModels {
+        var repository = CryptocurrenciesRepositoryImpl()
+        var useCase = CryptocurrenciesUseCase(repository)
+        CoinDetailViewModelFactory(useCase)
+    }
     private val bidsAdapter: BidsAdapter by lazy { BidsAdapter() }
     private val asksAdapter: AsksAdapter by lazy { AsksAdapter() }
 
@@ -32,18 +37,18 @@ class CoinDetailFragment : Fragment(){
             val resultCoinName = bundle.getString("coinNameKey")
             resultCoinName?.let {
                 viewModel.getCoinDetail(resultCoinName)
-                viewModel.getAsks(resultCoinName)
-                viewModel.getBids(resultCoinName)
+                viewModel.getAsksAndBids(resultCoinName)
+
             }
         }
 
-        viewModel.coinDetailModell.observe(viewLifecycleOwner) {
+        viewModel.coinDetailModel.observe(viewLifecycleOwner) {
             with(binding){
                 highCoinTxt.text = it.highValue
                 lastCoinTxt.text = it.lastValue
                 lowCoinTxt.text = it.lowValue
-                coinNameTxt.text = getNameCoin(it.coinName)
-                coinIconImg.setImageResource(getCoinIcon(it.coinName))
+                coinNameTxt.text = typeCoins(it.coinName).coinName
+                coinIconImg.setImageResource(typeCoins(it.coinName).drawable)
             }
         }
 

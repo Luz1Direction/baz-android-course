@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.criptomonedasapp.databinding.BidsRowItemBinding
 import com.example.criptomonedasapp.model.network.BidsModel
+import com.example.criptomonedasapp.utils.formatAsCurrency
 
 class BidsAdapter() : ListAdapter<BidsModel, BidsAdapter.ViewHolder>(difCallbackBids) {
 
@@ -34,7 +35,7 @@ class BidsAdapter() : ListAdapter<BidsModel, BidsAdapter.ViewHolder>(difCallback
     class ViewHolder(private val view: BidsRowItemBinding) : RecyclerView.ViewHolder(view.root) {
 
         fun bind(coin: BidsModel) {
-            view.priceBidsTxt.text = coin.price
+            view.priceBidsTxt.text = coin.price.toDouble().formatAsCurrency()
             view.amountBidsTxt.text = coin.amount
         }
     }

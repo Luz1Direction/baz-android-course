@@ -4,27 +4,24 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.criptomonedasapp.model.network.AsksAndBidsModel
 import com.example.criptomonedasapp.model.network.AsksModel
 import com.example.criptomonedasapp.model.network.BidsModel
 import com.example.criptomonedasapp.model.network.CoinDetailModel
-import com.example.criptomonedasapp.mvvm.adapter.AsksAdapter
-import com.example.criptomonedasapp.mvvm.adapter.BidsAdapter
 import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRepositoryImpl
+import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesUseCase
 import kotlinx.coroutines.Dispatchers
 
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class CoinDetailViewModel : ViewModel() {
+class CoinDetailViewModel(var useCase : CryptocurrenciesUseCase) : ViewModel() {
 
-    var  repository: CryptocurrenciesRepositoryImpl = CryptocurrenciesRepositoryImpl()
     private lateinit var list: CoinDetailModel
-
     private val _coinDetailModel = MutableLiveData<CoinDetailModel>()
-    val coinDetailModell: LiveData<CoinDetailModel> = _coinDetailModel
+    val coinDetailModel: LiveData<CoinDetailModel> = _coinDetailModel
 
-    private lateinit var asksListObtenied: List<AsksModel>
-    private lateinit var bidsListObtenied: List<BidsModel>
+    private lateinit var asksAndBids: AsksAndBidsModel
 
     var _bidsList = MutableLiveData<List<BidsModel>>()
     var bidsList: LiveData<List<BidsModel>> = _bidsList
@@ -35,31 +32,19 @@ class CoinDetailViewModel : ViewModel() {
     fun getCoinDetail(nameCoin: String) {
         viewModelScope.launch {
             list = withContext(Dispatchers.IO) {
-                repository.getCoinDetails(nameCoin)
+                useCase.getCoinDetails(nameCoin)
             }
             _coinDetailModel.value = list
         }
     }
 
-    fun getAsks(nameCoin: String){
+    fun getAsksAndBids(nameCoin: String){
         viewModelScope.launch {
-            asksListObtenied = withContext(Dispatchers.IO){
-                repository.getAskCoin(nameCoin)
+            asksAndBids = withContext(Dispatchers.IO){
+                useCase.getAsksAndBids(nameCoin)
             }
-            if (asksListObtenied.isNotEmpty()){
-                _asksList.value = asksListObtenied
-            }
-        }
-    }
-
-    fun getBids(nameCoin: String){
-        viewModelScope.launch {
-            bidsListObtenied = withContext(Dispatchers.IO){
-                repository.getBidsCoin(nameCoin)
-            }
-            if (bidsListObtenied.isNotEmpty()){
-                _bidsList.value = bidsListObtenied
-            }
+                _asksList.value = asksAndBids.asks
+                _bidsList.value = asksAndBids.bids
         }
     }
 }

@@ -10,13 +10,13 @@ import retrofit2.http.Query
 
 interface APIService {
     @GET("v3/available_books/")
-    fun getCoins(): Call<CoinsResponseModel>
+    suspend fun getCoins(): CoinsResponseModel
 
     @GET("v3/ticker/")
-    fun getDetailsCoin(@Query("book") book: String): Call<TickerResponseModel>
+    suspend fun getDetailsCoin(@Query("book") book: String): TickerResponseModel
 
     @GET("v3/order_book/")
-    fun getAskAndBids(@Query("book") book: String): Call<OrderCoinResponseModel>
+    suspend fun getAskAndBids(@Query("book") book: String): OrderCoinResponseModel
 
 
 }

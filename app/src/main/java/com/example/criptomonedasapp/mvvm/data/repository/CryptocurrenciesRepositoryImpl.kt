@@ -1,67 +1,24 @@
 package com.example.criptomonedasapp.mvvm.data.repository
 
 import com.example.criptomonedasapp.config.InitialAplication.Companion.webService
-import com.example.criptomonedasapp.model.network.AsksModel
-import com.example.criptomonedasapp.model.network.BidsModel
-import com.example.criptomonedasapp.model.network.CoinDetailModel
-import com.example.criptomonedasapp.model.network.CoinListModel
+import com.example.criptomonedasapp.model.network.*
 import com.example.criptomonedasapp.mvvm.domain.repository.CryptocurrenciesRepository
 
 class CryptocurrenciesRepositoryImpl: CryptocurrenciesRepository {
 
-    private lateinit var coinList: List<CoinListModel>
-    private lateinit var details: CoinDetailModel
-    private lateinit var asksList: List<AsksModel>
-    private lateinit var bidsList: List<BidsModel>
-
-    override fun getCoinList(): List<CoinListModel> {
-        var callResult = webService.getCoins()
-        var obtainedList = callResult.execute()
-
-        if (obtainedList.isSuccessful) {
-            obtainedList.body()?.let {
-                coinList = it.CoinList
-            }
-        }
-        return coinList
+    override suspend fun getCoinList(): List<CoinListModel> {
+        var obtainedList = webService.getCoins()
+        return obtainedList.CoinList
     }
 
-    override fun getCoinDetails(coin: String): CoinDetailModel {
-
-        var callResult = webService.getDetailsCoin(coin)
-        var obtainedList = callResult.execute()
-
-        if (obtainedList.isSuccessful) {
-            obtainedList.body()?.let {
-                details = it.detailsCoin
-            }
-        }
-
-        return details
+    override suspend fun getCoinDetails(coin: String): CoinDetailModel {
+        var obtainedResult = webService.getDetailsCoin(coin)
+        return obtainedResult.detailsCoin
     }
 
-    override fun getAskCoin(coin: String): List<AsksModel>{
-        var callResult = webService.getAskAndBids(coin)
-        var obtainedList = callResult.execute()
-
-        if (obtainedList.isSuccessful) {
-            obtainedList.body()?.let {
-                asksList = it.CoinList.asks
-            }
-        }
-        return asksList
-    }
-
-    override fun getBidsCoin(coin: String): List<BidsModel> {
-        var callResult = webService.getAskAndBids(coin)
-        var obtainedList = callResult.execute()
-
-        if (obtainedList.isSuccessful) {
-            obtainedList.body()?.let {
-                bidsList = it.CoinList.bids
-            }
-        }
-        return bidsList
+    override suspend fun getAsksAndBids(coin: String): AsksAndBidsModel {
+        var obtainedList = webService.getAskAndBids(coin)
+        return obtainedList.CoinList
     }
 
 }
