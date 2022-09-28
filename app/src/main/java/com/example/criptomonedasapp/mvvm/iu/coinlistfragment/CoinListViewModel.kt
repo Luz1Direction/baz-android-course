@@ -44,18 +44,24 @@ class CoinListViewModel(var useCase : CryptocurrenciesUseCase, var useCaseDataba
                     }
                 }
                 insertCoinListDatabase(listCoinsObtained)
-            }else {
+            } else {
                 getAllCoinsDatabase()
             }
         }
     }
 
-    private fun insertCoinListDatabase(coinList : List<CoinsModelCard>){
+    private fun insertCoinListDatabase(coinList: List<CoinsModelCard>) {
         viewModelScope.launch {
-            withContext(Dispatchers.IO){
+            withContext(Dispatchers.IO) {
                 coinList.forEach {
                     useCaseDatabase.insertAllCoin(
-                        CoinCardEntity(id = it.id, coinName = it.coinName, maxValue = it.maxValue, minValue = it.minValue, drawable = it.drawable)
+                        CoinCardEntity(
+                            id = it.id,
+                            coinName = it.coinName,
+                            maxValue = it.maxValue,
+                            minValue = it.minValue,
+                            drawable = it.drawable
+                        )
                     )
                 }
                 getAllCoinsDatabase()
@@ -63,9 +69,9 @@ class CoinListViewModel(var useCase : CryptocurrenciesUseCase, var useCaseDataba
         }
     }
 
-    private fun getAllCoinsDatabase(){
+    private fun getAllCoinsDatabase() {
         viewModelScope.launch {
-            listCoinModelCard = withContext(Dispatchers.IO){
+            listCoinModelCard = withContext(Dispatchers.IO) {
                 useCaseDatabase.getCoinList()
             }
             _coinListFinal.value = listCoinModelCard

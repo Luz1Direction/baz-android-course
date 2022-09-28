@@ -36,7 +36,7 @@ class CoinDetailFragment : Fragment(){
     ): View {
         _binding = CoinDetailFragmentBinding.inflate(inflater, container, false)
 
-        setFragmentResultListener("requestKey") { key, bundle ->
+        setFragmentResultListener("requestKey") { _, bundle ->
             val resultCoinName = bundle.getString("coinNameKey")
             resultCoinName?.let {
                 viewModel.getCoinDetail(resultCoinName)
