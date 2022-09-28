@@ -1,20 +1,16 @@
 package com.example.criptomonedasapp.mvvm.adapter
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.criptomonedasapp.R
 import com.example.criptomonedasapp.databinding.CoinListItemBinding
 import com.example.criptomonedasapp.model.CoinsModelCard
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
 
 
-class CoinListAdapter(val actionDetail: CoinDetailResultCallback) :
+class CoinListAdapter(private val actionDetail: CoinDetailResultCallback) :
     ListAdapter<CoinsModelCard, CoinListAdapter.ViewHolder>(difCallback){
 
     companion object{
@@ -30,13 +26,11 @@ class CoinListAdapter(val actionDetail: CoinDetailResultCallback) :
         }
     }
 
-
     override fun onCreateViewHolder(viewGroup: ViewGroup, viewType: Int): ViewHolder {
         val view = CoinListItemBinding.inflate(LayoutInflater.from(viewGroup.context), viewGroup, false)
 
         return ViewHolder(view)
     }
-
 
     override fun onBindViewHolder(viewHolder: ViewHolder, position: Int) {
 

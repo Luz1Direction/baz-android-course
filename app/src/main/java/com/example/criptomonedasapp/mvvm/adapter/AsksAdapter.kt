@@ -9,13 +9,12 @@ import com.example.criptomonedasapp.databinding.AsksRowItemBinding
 import com.example.criptomonedasapp.model.network.AsksModel
 import com.example.criptomonedasapp.utils.formatAsCurrency
 
-
 class AsksAdapter() : ListAdapter<AsksModel, AsksAdapter.ViewHolder>(difCallback){
 
     companion object{
         val difCallback = object : DiffUtil.ItemCallback<AsksModel>(){
             override fun areItemsTheSame(oldItem: AsksModel, newItem: AsksModel): Boolean {
-                return oldItem.coinName == newItem.coinName
+                return oldItem.price == newItem.price
             }
             override fun areContentsTheSame(oldItem: AsksModel, newItem: AsksModel): Boolean {
                 return oldItem == newItem

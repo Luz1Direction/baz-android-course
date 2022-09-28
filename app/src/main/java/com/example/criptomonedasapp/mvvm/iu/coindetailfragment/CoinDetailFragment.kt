@@ -12,17 +12,20 @@ import com.example.criptomonedasapp.databinding.CoinDetailFragmentBinding
 import com.example.criptomonedasapp.model.network.typeCoins
 import com.example.criptomonedasapp.mvvm.adapter.AsksAdapter
 import com.example.criptomonedasapp.mvvm.adapter.BidsAdapter
+import com.example.criptomonedasapp.mvvm.data.database.repository.CryptocurrenciesDatabaseRepositoryImpl
+import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesDatabaseUseCase
 import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRepositoryImpl
 import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesUseCase
 
 class CoinDetailFragment : Fragment(){
-
     private var _binding: CoinDetailFragmentBinding? = null
     private val binding get() = _binding!!
     private val viewModel: CoinDetailViewModel by viewModels {
-        var repository = CryptocurrenciesRepositoryImpl()
-        var useCase = CryptocurrenciesUseCase(repository)
-        CoinDetailViewModelFactory(useCase)
+        val repositoryDatabase = CryptocurrenciesDatabaseRepositoryImpl()
+        val useCaseDatabase = CryptocurrenciesDatabaseUseCase(repositoryDatabase)
+        val repository = CryptocurrenciesRepositoryImpl()
+        val useCase = CryptocurrenciesUseCase(repository)
+        CoinDetailViewModelFactory(useCase, useCaseDatabase)
     }
     private val bidsAdapter: BidsAdapter by lazy { BidsAdapter() }
     private val asksAdapter: AsksAdapter by lazy { AsksAdapter() }
@@ -38,18 +41,16 @@ class CoinDetailFragment : Fragment(){
             resultCoinName?.let {
                 viewModel.getCoinDetail(resultCoinName)
                 viewModel.getAsksAndBids(resultCoinName)
-
             }
         }
 
-        viewModel.coinDetailModel.observe(viewLifecycleOwner) {
+        viewModel.coinDetailFinal.observe(viewLifecycleOwner) {
             with(binding){
                 highCoinTxt.text = it.highValue
                 lastCoinTxt.text = it.lastValue
                 lowCoinTxt.text = it.lowValue
                 coinNameTxt.text = typeCoins(it.coinName).coinName
-                coinIconImg.setImageResource(typeCoins(it.coinName).drawable)
-            }
+                coinIconImg.setImageResource(typeCoins(it.coinName).drawable) }
         }
 
         binding.bidssListRecyclerView.layoutManager = LinearLayoutManager(context)
@@ -63,7 +64,6 @@ class CoinDetailFragment : Fragment(){
         viewModel.asksList.observe(viewLifecycleOwner) {
             asksAdapter.submitList(it)
         }
-
         return binding.root
     }
 }

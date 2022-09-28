@@ -12,9 +12,7 @@ data class CoinListModel(
     val maximum_amount: String,
     val minimum_value: String,
     val maximum_value: String,
-    val tick_size: String,
-    val default_chart: String,
-    val fees: FeesModel
+    val tick_size: String
 )
 
 fun typeCoins(typeCoin: String): CoinAuxiliaryModel {

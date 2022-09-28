@@ -69,7 +69,6 @@ dependencies {
     implementation 'androidx.navigation:navigation-fragment:2.3.5'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
 
-
     // Java language implementation
     implementation("androidx.navigation:navigation-fragment:2.5.1")
     implementation("androidx.navigation:navigation-ui:2.5.1")
@@ -86,6 +85,14 @@ dependencies {
 
    // Annotation processor
     kapt("androidx.lifecycle:lifecycle-compiler:2.3.1")
+
+    implementation("com.squareup.okhttp3:logging-interceptor:4.10.0")
+
+    //Room
+    implementation "androidx.room:room-runtime:2.4.3"
+    kapt "androidx.room:room-compiler:2.4.3"
+// Kotlin Extensions and Coroutines support for Room
+    implementation "androidx.room:room-ktx:2.4.3"
 
 
     testImplementation 'junit:junit:4.13.2'
