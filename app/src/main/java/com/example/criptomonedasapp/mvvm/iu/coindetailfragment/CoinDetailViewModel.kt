@@ -61,7 +61,6 @@ class CoinDetailViewModel(private var useCase : CryptocurrenciesUseCase, private
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 useCaseDatabase.insertCoinDetail(coinDetail)
-
                 getCoinDetailDatabase(coinDetail.coinName)
             }
         }

@@ -1,4 +1,4 @@
-package com.example.criptomonedas.mvvm.listcoinsfragment
+package com.example.criptomonedasapp.mvvm.iu.coinlistfragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,8 +18,6 @@ import com.example.criptomonedasapp.mvvm.data.database.usecases.Cryptocurrencies
 import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRepositoryImpl
 import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesUseCase
 import com.example.criptomonedasapp.mvvm.interfaces.CoinDetailResultCallback
-import com.example.criptomonedasapp.mvvm.iu.coinlistfragment.CoinListViewModel
-import com.example.criptomonedasapp.mvvm.iu.coinlistfragment.CoinListViewModelFactory
 
 class CoinListFragment() : Fragment(), CoinDetailResultCallback {
 
