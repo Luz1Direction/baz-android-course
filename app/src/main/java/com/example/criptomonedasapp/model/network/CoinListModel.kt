@@ -6,16 +6,16 @@ import com.google.gson.annotations.SerializedName
 
 data class CoinListModel(
     @SerializedName("book") val coinName: String,
-    val minimum_price: String,
-    val maximum_price: String,
-    val minimum_amount: String,
-    val maximum_amount: String,
-    val minimum_value: String,
-    val maximum_value: String,
-    val tick_size: String
+    @SerializedName("minimum_price") val minimumPrice: String,
+    @SerializedName("maximum_price") val maximumPrice: String,
+    @SerializedName("minimum_amount") val minimumAmount: String,
+    @SerializedName("maximum_amount") val maximumAmount: String,
+    @SerializedName("minimum_value")val minimumValue: String,
+    @SerializedName("maximum_value") val maximumValue: String,
+    @SerializedName("tick_size") val tickSize: String
 )
 
-fun typeCoins(typeCoin: String): CoinAuxiliaryModel {
+fun getCoinModel(typeCoin: String): CoinAuxiliaryModel {
     return when (typeCoin) {
         "btc_mxn" -> CoinAuxiliaryModel(coinName = "BitCoin", drawable = R.drawable.img_bitcoin)
         "eth_mxn" -> CoinAuxiliaryModel(coinName = "Ethereum", drawable = R.drawable.img_ethereum)

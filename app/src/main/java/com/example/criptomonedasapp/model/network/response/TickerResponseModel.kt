@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 
 data class TickerResponseModel (
     val success: String,
-    @SerializedName("payload") val detailsCoin: CoinDetailModel
+    @SerializedName("payload") val coinDetail: CoinDetailModel
     )

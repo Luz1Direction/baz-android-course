@@ -11,3 +11,9 @@ data class CoinDetailModel(
     val ask: String,
     val bid: String
 )
+
+
+fun isValid (coinDetail : CoinDetailModel?) = coinDetail != null
+
+
+
