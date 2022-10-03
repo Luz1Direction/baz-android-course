@@ -4,7 +4,6 @@ import com.example.criptomonedasapp.model.network.*
 import javax.inject.Inject
 
 interface CryptocurrenciesRemoteDataSource {
-    suspend fun getCoinList(): List<CoinListModel>?
     suspend fun getCoinDetails(coin: String): CoinDetailModel?
     suspend fun getAsksAndBids(coin: String): AsksAndBidsModel?
 }

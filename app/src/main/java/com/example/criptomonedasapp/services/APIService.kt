@@ -1,14 +1,15 @@
 package com.example.criptomonedasapp.services
 
-import com.example.criptomonedasapp.model.network.response.CoinResponseModel
 import com.example.criptomonedasapp.model.network.response.CoinOrderResponseModel
+import com.example.criptomonedasapp.model.network.response.CoinResponseModel
 import com.example.criptomonedasapp.model.network.response.TickerResponseModel
+import io.reactivex.rxjava3.core.Single
 import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface APIService {
     @GET("v3/available_books/")
-    suspend fun getCoins(): CoinResponseModel
+    fun getCoins(): Single<CoinResponseModel>
 
     @GET("v3/ticker/")
     suspend fun getCoinDetail(@Query("book") book: String): TickerResponseModel

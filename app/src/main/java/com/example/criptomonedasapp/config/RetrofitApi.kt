@@ -2,6 +2,7 @@ package com.example.criptomonedasapp.config
 
 import com.example.criptomonedasapp.services.APIService
 import com.example.criptomonedasapp.services.CryptoEndPoints.URL_BASE_
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,8 +35,8 @@ class RetrofitApi {
             .client(okHttpClient)
             .baseUrl(URL_BASE_)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
         return retrofit.create(APIService::class.java)
     }
-
 }
