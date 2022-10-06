@@ -47,20 +47,20 @@ class CoinDetailViewModelTest{
     }
 
     @Test
-    fun `Get CoinDetailModel when the viewmodel is created`() = runTest {
+    fun coinDetailFinal_returnValueOfGetCoinDetails_ReturnsTrue() = runTest {
         val coin = "btc_mxn"
         val detailModel = CoinDetailModel("12","13","btc_mxn", "14", "15", "16","17")
 
         //Given
         coEvery { useCase.getCoinDetails(coin) } returns detailModel
         //When
-        useCase.getAsksAndBids(coin)
+        useCase.getCoinDetails(coin)
         //Then
         viewModel.coinDetailFinal.value?.equals(detailModel)?.let { assert(it) }
     }
 
     @Test
-    fun `Get the list of asks when the viewmodel is created`() = runTest {
+    fun liveDataAsksList_AsksModelList_ReturnsTrue() = runTest {
         val coin = "btc_mxn"
         val asksList = listOf(AsksModel("btc_mxn", "11", "12"), AsksModel("btc_mxn", "13", "13"))
         val bidsList = listOf(BidsModel("btc_mxn", "11", "12"), BidsModel("btc_mxn", "13", "13"))
@@ -74,7 +74,7 @@ class CoinDetailViewModelTest{
     }
 
     @Test
-    fun `Get the list of bids when the viewmodel is created`() = runTest {
+    fun liveDataBidsList_BidsModelList_ReturnsTrue() = runTest {
         val coin = "btc_mxn"
         val asksList = listOf(AsksModel("btc_mxn", "11", "12"), AsksModel("btc_mxn", "13", "13"))
         val bidsList = listOf(BidsModel("btc_mxn", "11", "12"), BidsModel("btc_mxn", "13", "13"))
