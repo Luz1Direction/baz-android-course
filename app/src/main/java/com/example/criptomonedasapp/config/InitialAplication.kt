@@ -9,12 +9,7 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class InitialAplication: Application() {
 
-    companion object {
-        lateinit var webService: APIService
-    }
-
     override fun onCreate() {
         super.onCreate()
-        webService = RetrofitApi().getConfigRetrofit()
     }
 }

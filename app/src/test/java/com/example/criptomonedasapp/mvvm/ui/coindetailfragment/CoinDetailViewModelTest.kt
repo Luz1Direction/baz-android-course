@@ -5,8 +5,9 @@ import com.example.criptomonedasapp.model.network.AsksAndBidsModel
 import com.example.criptomonedasapp.model.network.AsksModel
 import com.example.criptomonedasapp.model.network.BidsModel
 import com.example.criptomonedasapp.model.network.CoinDetailModel
-import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesDataSourceUseCase
-import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesRemoteDataSourceUseCase
+import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesRepository
+import com.example.criptomonedasapp.mvvm.domain.repository.CryptocurrenciesDetailUseCase
+import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesDetailsUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -24,9 +25,9 @@ import org.junit.Test
 class CoinDetailViewModelTest{
 
     @RelaxedMockK
-    private lateinit var useCase : CryptocurrenciesRemoteDataSourceUseCase
+    private lateinit var useCase : CryptocurrenciesDetailsUseCase
     @RelaxedMockK
-    private lateinit var  useCaseDatabase : CryptocurrenciesDataSourceUseCase
+    private lateinit var  useCaseDatabase : CryptocurrenciesRepository
 
     private lateinit var viewModel: CoinDetailViewModel
 

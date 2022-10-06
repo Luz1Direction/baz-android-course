@@ -1,7 +1,7 @@
 package com.example.criptomonedasapp.mvvm.domain.usecases
 
 import com.example.criptomonedasapp.model.network.*
-import com.example.criptomonedasapp.mvvm.domain.repository.CryptocurrenciesRemoteDataSource
+import com.example.criptomonedasapp.mvvm.domain.repository.CryptocurrenciesDetailUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -9,18 +9,18 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class CryptocurrenciesRemoteDataSourceUseCaseTest{
+class CryptocurrenciesDetailsUseCaseTest{
 
 
     @RelaxedMockK
-    private lateinit var repository: CryptocurrenciesRemoteDataSource
+    private lateinit var repository: CryptocurrenciesDetailUseCase
 
-    lateinit var useCase: CryptocurrenciesRemoteDataSourceUseCase
+    lateinit var useCase: CryptocurrenciesDetailsUseCase
 
     @Before
     fun onBefore(){
         MockKAnnotations.init(this)
-        useCase = CryptocurrenciesRemoteDataSourceUseCase(repository)
+        useCase = CryptocurrenciesDetailsUseCase(repository)
     }
 
     @Test

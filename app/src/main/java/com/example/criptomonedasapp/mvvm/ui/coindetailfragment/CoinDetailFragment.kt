@@ -15,10 +15,6 @@ import com.example.criptomonedasapp.model.network.CoinDetailModel
 import com.example.criptomonedasapp.model.network.getCoinModel
 import com.example.criptomonedasapp.mvvm.adapter.AsksAdapter
 import com.example.criptomonedasapp.mvvm.adapter.BidsAdapter
-import com.example.criptomonedasapp.mvvm.data.database.repository.CryptocurrenciesDataSourceImpl
-import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesDataSourceUseCase
-import com.example.criptomonedasapp.mvvm.data.repository.CryptocurrenciesRemoteDataSourceImpl
-import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesRemoteDataSourceUseCase
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

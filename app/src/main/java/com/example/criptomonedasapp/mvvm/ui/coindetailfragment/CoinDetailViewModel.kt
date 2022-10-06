@@ -3,21 +3,26 @@ package com.example.criptomonedasapp.mvvm.ui.coindetailfragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.criptomonedasapp.model.network.*
+import com.example.criptomonedasapp.model.network.AsksAndBidsModel
+import com.example.criptomonedasapp.model.network.AsksModel
+import com.example.criptomonedasapp.model.network.BidsModel
+import com.example.criptomonedasapp.model.network.CoinDetailModel
 import com.example.criptomonedasapp.mvvm.data.database.entities.AsksEntity
+import com.example.criptomonedasapp.mvvm.data.database.entities.BidsEntity
 import com.example.criptomonedasapp.mvvm.data.database.entities.CoinDetailEntity
-import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesDataSourceUseCase
-import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesRemoteDataSourceUseCase
+import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesRepository
+import com.example.criptomonedasapp.mvvm.domain.usecases.CryptocurrenciesDetailsUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
 class CoinDetailViewModel @Inject constructor(
-    private var useCase : CryptocurrenciesRemoteDataSourceUseCase,
-    private var useCaseDatabase : CryptocurrenciesDataSourceUseCase) : ViewModel() {
+    private var detailsUseCase : CryptocurrenciesDetailsUseCase,
+    private var cryptocurrenciesRepository : CryptocurrenciesRepository) : ViewModel() {
 
     var coinDetailModel: CoinDetailModel? = null
 
@@ -35,10 +40,10 @@ class CoinDetailViewModel @Inject constructor(
     fun getCoinDetail(nameCoin: String) {
         viewModelScope.launch {
             coinDetailModel = withContext(Dispatchers.Unconfined) {
-                useCase.getCoinDetails(nameCoin)
+                detailsUseCase.getCoinDetails(nameCoin)
             }
 
-            if(isValid(coinDetailModel)){
+            if(coinDetailModel?.isValid() == true){
                 coinDetailModel?.let {
                     insertCoinDetailDatabase(
                         CoinDetailEntity(
@@ -52,64 +57,74 @@ class CoinDetailViewModel @Inject constructor(
                         ))
                 }
             } else {
-                _coinDetailFinal.value = useCaseDatabase.getCoinDetail(nameCoin)
+                _coinDetailFinal.value = cryptocurrenciesRepository.getCoinDetail(nameCoin)
             }
         }
     }
 
-    fun getAsksAndBids(nameCoin: String){
+    fun getAsksAndBids(nameCoin: String) {
         viewModelScope.launch {
-            _asksList.value =  withContext(Dispatchers.IO){
-                useCaseDatabase.getAsks(nameCoin)
+
+            _asksList.value = withContext(IO) {
+                cryptocurrenciesRepository.getAsks(nameCoin)
             }
-            _bidsList.value =  withContext(Dispatchers.IO){
-                useCaseDatabase.getBids(nameCoin)
+
+            _bidsList.value = withContext(IO) {
+                cryptocurrenciesRepository.getBids(nameCoin)
             }
-                _asksList?.let {
+
+            if (_asksList.value.isNullOrEmpty()) {
                 getAsksAndBidsFromRemoteDataSource(nameCoin)
             }
         }
     }
 
-    private fun getAsksAndBidsFromRemoteDataSource(nameCoin: String) {
+    private fun getAsksAndBidsFromRemoteDataSource(coinName: String) {
         var asksEntityList = ArrayList<AsksEntity>()
-        viewModelScope.launch {
-            asksAndBids = withContext(Dispatchers.IO) {
-                useCase.getAsksAndBids(nameCoin)
-            }
-                asksAndBids?.asks?.let {
-                    it.forEach { asks ->
-                        asksEntityList.add(AsksEntity(asks.price, asks.coinName, asks.amount))
-                    }
-                }
-                insertAsks(asksEntityList, nameCoin)
-                asksAndBids?.bids?.let { insertBids(it, nameCoin) }
-            }
-    }
+        var bidsEntityList = ArrayList<BidsEntity>()
 
-    private fun insertCoinDetailDatabase(coinDetail: CoinDetailEntity) {
         viewModelScope.launch {
-            _coinDetailFinal.value = withContext(Dispatchers.IO) {
-                useCaseDatabase.insertCoinDetail(coinDetail)
-                useCaseDatabase.getCoinDetail(coinDetail.coinName)
+            asksAndBids = withContext(Dispatchers.IO) { detailsUseCase.getAsksAndBids(coinName) }
+
+            asksAndBids?.asks?.let {
+                it.forEach { asks ->
+                    asksEntityList.add(AsksEntity(asks.price, asks.coinName, asks.amount))
+                }
+                insertAsks(asksEntityList, coinName)
+            }
+
+            asksAndBids?.bids?.let {
+                it.forEach { bids ->
+                    bidsEntityList.add(BidsEntity(bids.price, bids.coinName, bids.amount))
+                }
+                insertBids(bidsEntityList, coinName)
             }
         }
     }
 
-    private fun insertBids(bids: List<BidsModel>, coinName: String){
+    private fun insertCoinDetailDatabase(coinDetail: CoinDetailEntity) {
         viewModelScope.launch {
-            _bidsList.value =  withContext(Dispatchers.IO) {
-                useCaseDatabase.insertBids(bids)
-                useCaseDatabase.getBids(coinName)
+            _coinDetailFinal.value = withContext(IO) {
+                cryptocurrenciesRepository.insertCoinDetail(coinDetail)
+                cryptocurrenciesRepository.getCoinDetail(coinDetail.coinName)
+            }
+        }
+    }
+
+    private fun insertBids(bids: List<BidsEntity>, coinName: String){
+        viewModelScope.launch {
+            _bidsList.value =  withContext(IO) {
+                cryptocurrenciesRepository.insertBids(bids)
+                cryptocurrenciesRepository.getBids(coinName)
             }
         }
     }
 
     private fun insertAsks(asks: List<AsksEntity>, coinName: String){
         viewModelScope.launch {
-            _asksList.value   =  withContext(Dispatchers.IO) {
-                useCaseDatabase.insertAsks(asks)
-                useCaseDatabase.getAsks(coinName)
+            _asksList.value   =  withContext(IO) {
+                cryptocurrenciesRepository.insertAsks(asks)
+                cryptocurrenciesRepository.getAsks(coinName)
             }
         }
     }

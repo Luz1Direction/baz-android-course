@@ -10,10 +10,10 @@ data class CoinDetailModel(
     @SerializedName("low") val lowValue: String,
     val ask: String,
     val bid: String
-)
+){
+    fun isValid() = this != null
+}
 
-
-fun isValid (coinDetail : CoinDetailModel?) = coinDetail != null
 
 
 

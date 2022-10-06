@@ -9,7 +9,7 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitApi {
-
+/*
    private val interceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
@@ -38,5 +38,5 @@ class RetrofitApi {
             .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
         return retrofit.create(APIService::class.java)
-    }
+    }*/
 }

@@ -41,19 +41,8 @@ class CoinListFragment() : Fragment(), CoinDetailResultCallback {
         binding.coinListRecyclerView.adapter = coinListAdapter
 
         viewModel.coinListObserve.observe(viewLifecycleOwner){ list ->
-            val coinObtainedList = ArrayList<CoinCardEntity>()
-            list.forEach {
-                coinObtainedList.add(
-                    CoinCardEntity(
-                        coinName = getCoinModel(it.coinName).coinName,
-                        id = it.coinName,
-                        drawable = getCoinModel(it.coinName).drawable,
-                        maxValue = it.maximumValue,
-                        minValue = it.minimumValue
-                    )
-                )
-            }
-            viewModel.insertCoinListDatabase(coinObtainedList)
+
+            viewModel.insertCoinListDatabase(list)
         }
         viewModel.coinFinalList.observe(viewLifecycleOwner) {
            coinListAdapter.submitList(it)

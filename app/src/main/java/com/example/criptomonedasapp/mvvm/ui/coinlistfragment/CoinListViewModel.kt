@@ -3,12 +3,13 @@ package com.example.criptomonedasapp.mvvm.ui.coinlistfragment
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.criptomonedasapp.config.InitialAplication
 import com.example.criptomonedasapp.model.CoinCardModel
 import com.example.criptomonedasapp.model.network.CoinListModel
+import com.example.criptomonedasapp.model.network.getCoinModel
 import com.example.criptomonedasapp.model.network.response.CoinResponseModel
 import com.example.criptomonedasapp.mvvm.data.database.entities.CoinCardEntity
-import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesDataSourceUseCase
+import com.example.criptomonedasapp.mvvm.data.database.usecases.CryptocurrenciesRepository
+import com.example.criptomonedasapp.services.APIService
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
@@ -19,7 +20,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
-    private val useCaseDatabase : CryptocurrenciesDataSourceUseCase
+    private val apiService: APIService,
+    private val cryptocurrenciesRepository : CryptocurrenciesRepository
     ) : ViewModel() {
 
     private var _coinListFinal = MutableLiveData<List<CoinCardModel>?>()
@@ -32,16 +34,17 @@ class CoinListViewModel @Inject constructor(
     fun getAllCoin(){
         viewModelScope.launch {
             _coinListFinal.value = withContext(Dispatchers.IO){
-                useCaseDatabase.getCoinList()
+                cryptocurrenciesRepository.getCoinList()
             }
-            _coinListFinal?.let {
+
+            if(_coinListFinal.value.isNullOrEmpty()){
                 insertAllCoin()
             }
         }
     }
 
     private fun insertAllCoin() {
-        InitialAplication.webService.getCoins()
+        apiService.getCoins()
             .subscribeOn(Schedulers.single())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { onSuccess: CoinResponseModel?, onError: Throwable? ->
@@ -54,14 +57,21 @@ class CoinListViewModel @Inject constructor(
             }
     }
 
-     fun insertCoinListDatabase(coinList: List<CoinCardEntity>) {
-
+     fun insertCoinListDatabase(coinList: List<CoinListModel>) {
         viewModelScope.launch {
             _coinListFinal.value = withContext(Dispatchers.IO) {
                 coinList.forEach {
-                    useCaseDatabase.insertAllCoin(it)
+                    cryptocurrenciesRepository.insertAllCoin(
+                        CoinCardEntity(
+                            coinName = getCoinModel(it.coinName).coinName,
+                            id = it.coinName,
+                            drawable = getCoinModel(it.coinName).drawable,
+                            maxValue = it.maximumValue,
+                            minValue = it.minimumValue
+                        )
+                    )
                 }
-                useCaseDatabase.getCoinList()
+                cryptocurrenciesRepository.getCoinList()
             }
         }
     }

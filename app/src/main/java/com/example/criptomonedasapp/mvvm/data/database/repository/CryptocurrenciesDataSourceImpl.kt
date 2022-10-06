@@ -73,10 +73,10 @@ class CryptocurrenciesDataSourceImpl @Inject constructor(
         return asks
     }
 
-    override suspend fun insertBids(coins: List<BidsModel>) {
+    override suspend fun insertBids(coins: List<BidsEntity>) {
         coins.forEach {
             cryptocurrenciesBD.cryptocurrenciesDao().insertBids(
-                BidsEntity(coinName = it.coinName, price = it.price, amount = it.amount)
+                it
             )
         }
     }
