@@ -2,16 +2,14 @@ package com.example.criptomonedasapp.config
 
 import com.example.criptomonedasapp.services.APIService
 import com.example.criptomonedasapp.services.CryptoEndPoints.URL_BASE_
-import okhttp3.Interceptor
+import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory
 import okhttp3.OkHttpClient
-import okhttp3.Request
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
 
-class APIRetrofit {
-
+class RetrofitApi {
+/*
    private val interceptor = run {
         val httpLoggingInterceptor = HttpLoggingInterceptor()
         httpLoggingInterceptor.apply {
@@ -37,8 +35,8 @@ class APIRetrofit {
             .client(okHttpClient)
             .baseUrl(URL_BASE_)
             .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
             .build()
         return retrofit.create(APIService::class.java)
-    }
-
+    }*/
 }

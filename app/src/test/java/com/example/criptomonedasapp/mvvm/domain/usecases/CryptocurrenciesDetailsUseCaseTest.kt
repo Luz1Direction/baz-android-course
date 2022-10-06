@@ -1,7 +1,7 @@
 package com.example.criptomonedasapp.mvvm.domain.usecases
 
 import com.example.criptomonedasapp.model.network.*
-import com.example.criptomonedasapp.mvvm.domain.repository.CryptocurrenciesRepository
+import com.example.criptomonedasapp.mvvm.domain.repository.CryptocurrenciesDetailUseCase
 import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.impl.annotations.RelaxedMockK
@@ -9,36 +9,22 @@ import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Test
 
-class CryptocurrenciesUseCaseTest{
+class CryptocurrenciesDetailsUseCaseTest{
+
 
     @RelaxedMockK
-    private lateinit var repository: CryptocurrenciesRepository
+    private lateinit var repository: CryptocurrenciesDetailUseCase
 
-    lateinit var useCase: CryptocurrenciesUseCase
+    lateinit var useCase: CryptocurrenciesDetailsUseCase
 
     @Before
     fun onBefore(){
         MockKAnnotations.init(this)
-        useCase = CryptocurrenciesUseCase(repository)
+        useCase = CryptocurrenciesDetailsUseCase(repository)
     }
 
     @Test
-    fun `cuando se mande a llamar a la funcion getAvailableCoinList debe retornar un List de CoinListModel`() = runBlocking{
-        val myList = listOf(CoinListModel("btc_mxn", "11", "12", "13", "14", "15","16", "17"),
-            CoinListModel("eth_mxn", "21", "22", "23", "24", "25","26", "27")
-        )
-        //Given
-        coEvery { repository.getCoinList() } returns myList
-
-        //When
-        val result = useCase.getAvailableCoinList()
-
-        //Then
-        assert(myList == result)
-    }
-
-    @Test
-    fun `cuando se mande a llamar a la funcion getCoinDetails debe retornar un CoinDetailModel`() = runBlocking{
+    fun `when the getCoinDetails function is called, it must return a CoinDetailModel`() = runBlocking{
         val coin = "btc_mxn"
         val coinDetailModel = CoinDetailModel("11", "12", "btc_mxn", "13", "14", "15", "16")
         //Given
@@ -52,13 +38,13 @@ class CryptocurrenciesUseCaseTest{
     }
 
     @Test
-    fun `cuando se mande a llamar a la funcion getAsksAndBids debe retornar un AsksAndBidsModel`() = runBlocking{
+    fun `when the getAsksAndBids function is called, it must return an AsksAndBidsModel`() = runBlocking{
         val coin = "btc_mxn"
         val asksList = listOf(AsksModel("btc_mxn", "11", "12"), AsksModel("btc_mxn", "13", "13"))
         val bidsList = listOf(BidsModel("btc_mxn", "11", "12"), BidsModel("btc_mxn", "13", "13"))
         val asksAndBids = AsksAndBidsModel(asksList,bidsList)
 
-            //Given
+        //Given
         coEvery { repository.getAsksAndBids(coin) } returns asksAndBids
 
         //When
@@ -67,5 +53,6 @@ class CryptocurrenciesUseCaseTest{
         //Then
         assert(asksAndBids == result)
     }
+
 
 }
