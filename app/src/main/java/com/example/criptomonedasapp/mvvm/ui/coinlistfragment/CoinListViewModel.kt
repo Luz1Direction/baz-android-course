@@ -43,7 +43,7 @@ class CoinListViewModel @Inject constructor(
                     }.map { it.toDomain() }
                 }
                 onError?.let {
-                    _coinListObserve.value = emptyList()
+                    _coinListObserve.postValue(emptyList())
                 }
             }
     }

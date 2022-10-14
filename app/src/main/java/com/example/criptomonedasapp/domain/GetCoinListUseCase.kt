@@ -8,9 +8,9 @@ import javax.inject.Inject
 class GetCoinListUseCase @Inject constructor(
     private val repository: CryptocurrenciesRepository
 ) {
-        suspend operator fun invoke(coins: List<CoinCardData>?): List<CoinCardData> {
+        suspend operator fun invoke(coins: List<CoinCardData>): List<CoinCardData> {
 
-            return if (coins != null) {
+            return if (coins.isNotEmpty()) {
                 repository.insertCoinList(coins.map { it.toDatabase() })
                 coins
             } else {
