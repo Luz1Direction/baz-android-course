@@ -30,8 +30,13 @@ class CryptocurrenciesLocalDataSourceImpl @Inject constructor(
         )
     }
 
-    override suspend fun getCoinDetail(coin: String): CoinDetailEntity {
-        return cryptocurrenciesBD.cryptocurrenciesDao().getCoinDetail(coin)
+    override suspend fun getCoinDetail(coin: String): CoinDetailEntity? {
+        return try {
+            cryptocurrenciesBD.cryptocurrenciesDao().getCoinDetail(coin)
+        } catch (ex: Exception) {
+            null
+        }
+
     }
 
     override suspend fun insertAsks(coins: List<AsksEntity>) {

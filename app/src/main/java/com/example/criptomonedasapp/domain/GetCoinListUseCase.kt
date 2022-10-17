@@ -1,6 +1,5 @@
 package com.example.criptomonedasapp.domain
 
-import com.example.criptomonedasapp.data.local.database.entities.toDatabase
 import com.example.criptomonedasapp.domain.model.CoinCardData
 import com.example.criptomonedasapp.domain.repository.CryptocurrenciesRepository
 import javax.inject.Inject
@@ -8,13 +7,7 @@ import javax.inject.Inject
 class GetCoinListUseCase @Inject constructor(
     private val repository: CryptocurrenciesRepository
 ) {
-        suspend operator fun invoke(coins: List<CoinCardData>): List<CoinCardData> {
-
-            return if (coins.isNotEmpty()) {
-                repository.insertCoinList(coins.map { it.toDatabase() })
-                coins
-            } else {
-                repository.getAllCoinsFromDatabase()
-            }
-        }
+    suspend operator fun invoke(coins: List<CoinCardData>): List<CoinCardData> {
+        return repository.getAllCoins(coins)
+    }
 }

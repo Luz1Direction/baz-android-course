@@ -7,6 +7,8 @@ import com.example.criptomonedasapp.data.network.dataSources.CryptocurrenciesRem
 import com.example.criptomonedasapp.data.network.CryptocurrenciesRemoteDataSource
 import com.example.criptomonedasapp.data.network.services.APIService
 import com.example.criptomonedasapp.data.network.services.CryptoEndPoints
+import com.example.criptomonedasapp.domain.dataSources.CryptocurrenciesRepositoryImpl
+import com.example.criptomonedasapp.domain.repository.CryptocurrenciesRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -33,6 +35,15 @@ object NetworkModule {
     @Singleton
     @Provides
     fun cryptocurrenciesDataSource(
+       remoteDataSource: CryptocurrenciesRemoteDataSource,
+       localDataSource: CryptocurrenciesLocalDataSource
+    ): CryptocurrenciesRepository {
+        return CryptocurrenciesRepositoryImpl(remoteDataSource,localDataSource)
+    }
+
+    @Singleton
+    @Provides
+    fun cryptocurrenciesRepository(
         data: CoinsDatabase
     ): CryptocurrenciesLocalDataSource {
         return CryptocurrenciesLocalDataSourceImpl(data)

@@ -10,7 +10,7 @@ interface CryptocurrenciesLocalDataSource {
     suspend fun insertAllCoin(coins: List<CoinCardEntity>)
     suspend fun getCoinList(): List<CoinCardEntity>
     suspend fun insertCoinDetail(coinDetail: CoinDetailEntity)
-    suspend fun getCoinDetail(coin: String): CoinDetailEntity
+    suspend fun getCoinDetail(coin: String): CoinDetailEntity?
     suspend fun insertAsks(coins: List<AsksEntity>)
     suspend fun getAsks(coin: String): List<AsksEntity>
     suspend fun insertBids(coins: List<BidsEntity>)
