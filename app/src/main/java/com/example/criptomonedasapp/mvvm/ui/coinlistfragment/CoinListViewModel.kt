@@ -12,6 +12,7 @@ import com.example.criptomonedasapp.domain.model.CoinCardData
 import com.example.criptomonedasapp.domain.model.toDomain
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Scheduler
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
@@ -21,6 +22,7 @@ import javax.inject.Inject
 @VisibleForTesting
 @HiltViewModel
 class CoinListViewModel @Inject constructor(
+    private val schedulers: Scheduler,
     private val dispatcher: CoroutineDispatcher,
     private val apiService: APIService,
     private val CoinListDataSourceUseCase : GetCoinListUseCase
@@ -34,7 +36,7 @@ class CoinListViewModel @Inject constructor(
 
    fun insertAllCoin() {
         apiService.getCoins()
-            .subscribeOn(Schedulers.io())
+            .subscribeOn(schedulers)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe { onSuccess: CoinResponseModel?, onError: Throwable? ->
                 onSuccess?.let { list ->
