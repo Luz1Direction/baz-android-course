@@ -4,19 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.annotation.VisibleForTesting
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.setFragmentResultListener
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.criptomonedasapp.databinding.CoinDetailFragmentBinding
-import com.example.criptomonedasapp.model.network.AsksModel
-import com.example.criptomonedasapp.model.network.BidsModel
-import com.example.criptomonedasapp.model.network.CoinDetailModel
-import com.example.criptomonedasapp.model.network.getCoinModel
-import com.example.criptomonedasapp.mvvm.adapter.AsksAdapter
-import com.example.criptomonedasapp.mvvm.adapter.BidsAdapter
+import com.example.criptomonedasapp.domain.model.AsksModelData
+import com.example.criptomonedasapp.domain.model.BidsModelData
+import com.example.criptomonedasapp.domain.model.CoinDetailModelData
+import com.example.criptomonedasapp.data.network.model.network.getCoinModel
+import com.example.criptomonedasapp.mvvm.ui.adapter.AsksAdapter
+import com.example.criptomonedasapp.mvvm.ui.adapter.BidsAdapter
 import dagger.hilt.android.AndroidEntryPoint
 
+@VisibleForTesting
 @AndroidEntryPoint
 class CoinDetailFragment : Fragment(){
     private var _binding: CoinDetailFragmentBinding? = null
@@ -55,13 +57,14 @@ class CoinDetailFragment : Fragment(){
         setFragmentResultListener("requestKey") { _, bundle ->
             val resultCoinName = bundle.getString("coinNameKey")
             resultCoinName?.let {
-                        viewModel.getAsksAndBids(resultCoinName)
+                        viewModel.getAllAsks(resultCoinName)
+                        viewModel.getAllBids(resultCoinName)
                         viewModel.getCoinDetail(resultCoinName)
             }
         }
     }
 
-    private fun setUp(coin: CoinDetailModel?) {
+    private fun setUp(coin: CoinDetailModelData?) {
         with(binding) {
             coin?.let {
                 highCoinTxt.text = it.highValue
@@ -73,13 +76,13 @@ class CoinDetailFragment : Fragment(){
         }
     }
 
-    private fun onAsks(asks: List<AsksModel>?) {
+    private fun onAsks(asks: List<AsksModelData>?) {
         asks?.let {
             asksAdapter.submitList(it)
         }
     }
 
-    private fun onBids(bids: List<BidsModel>?) {
+    private fun onBids(bids: List<BidsModelData>?) {
         bids?.let {
             bidsAdapter.submitList(it)
         }
